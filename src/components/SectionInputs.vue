@@ -14,7 +14,6 @@
 
 <script setup>
 import Cleave from 'cleave.js';
-import { defineProps } from 'vue';
 
 const vCleave = {
     beforeMount: (el, binding) => {

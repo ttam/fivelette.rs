@@ -7,7 +7,7 @@
 </template>
 
 <script setup>
-import { computed, defineProps, ref } from 'vue';
+import { computed, ref } from 'vue';
 
 const adjustedMask = computed(() => `${props.mask.toLowerCase()}?????`.substring(0, 5));
 
@@ -16,7 +16,7 @@ const counter = computed(() => words.value.length);
 const dictionary = ref([]);
 
 const highlightedWords = computed(() => words.value.map(i => i.split('').map((letter, index) => {
-    const className = adjustedMask.value[index] === letter.toLowerCase() ? 'mask' : props.include.includes(letter) ? 'include' : '';
+    const className = adjustedMask.value[index] === letter.toLowerCase() ? 'mask' : props.include.toLowerCase().includes(letter) ? 'include' : '';
 
     return `<span class="${className}">${letter}</span>`;
 }).join('')).join(' '));
