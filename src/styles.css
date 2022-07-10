@@ -15,10 +15,6 @@ input {
     color: unset;
 }
 
-:where([hidden]) {
-    display: none;
-}
-
 body {
     min-height: 100vh;
     min-height: -webkit-fill-available;
@@ -167,8 +163,13 @@ footer {
 
 footer a {
     color: var(--color-mask);
+    cursor: pointer;
+    text-decoration: underline;
 }
 
+footer a:hover {
+    text-decoration: none;
+}
 
 @media (min-width: 43rem) {
     main {
