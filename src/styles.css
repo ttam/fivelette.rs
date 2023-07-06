@@ -216,3 +216,9 @@ svg {
     font-size: 30px;
     max-width: 100%;
 }
+
+.cake {
+    font-size: 3rem;
+    position: relative;
+    top: -2rem;
+}
