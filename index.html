@@ -8,7 +8,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Roboto+Mono&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-KNJETGMBQE"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -20,7 +19,6 @@
 </head>
 <body>
     <header>
-        <span class="cake">🎂</span>
         <svg viewBox="0 0 200 35">
             <symbol id="header">
                 <text text-anchor="middle" x="50%" y="0%" dy="28px">Five Lette.rs</text>
@@ -30,7 +28,6 @@
             <use class="text" xlink:href="#header"></use>
             <use class="text" xlink:href="#header"></use>
         </svg>
-        <span class="cake">🎂</span>
 
         <h1 hidden>Five Lette.rs</h1>
     </header>
@@ -42,32 +39,5 @@
         Made by <a href="https://ttam.co/" target="_blank">Matt</a>.
     </footer>
 <script type="module" src="/src/main.js"></script>
-    <script>
-        // do this for 30 seconds
-        var duration = 2 * 1000;
-        var end = Date.now() + duration;
-
-        (function frame() {
-            // launch a few confetti from the left edge
-            confetti({
-                particleCount: 7,
-                angle: 60,
-                spread: 55,
-                origin: { x: 0 }
-            });
-            // and launch a few from the right edge
-            confetti({
-                particleCount: 7,
-                angle: 120,
-                spread: 55,
-                origin: { x: 1 }
-            });
-
-            // keep going until we are out of time
-            if (Date.now() < end) {
-                requestAnimationFrame(frame);
-            }
-        }());
-    </script>
 </body>
 </html>
