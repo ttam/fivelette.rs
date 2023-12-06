@@ -1,22 +1,23 @@
 <template>
     <section class="results">
         <p v-if="counter === 0">No matching words found</p>
-        <p v-else-if="counter > 200">{{ counter.toLocaleString('en-AU') }} words found.</p>
+        <p v-else-if="counter > 200">{{ counter.toLocaleString() }} words found.</p>
         <p class="monospace" v-else v-html="highlightedWords"></p>
     </section>
 </template>
 
 <script setup>
 import { computed, ref } from 'vue';
+import { useSimpleStore } from '../stores/simple.js';
 
-const adjustedMask = computed(() => `${props.mask.toLowerCase()}?????`.substring(0, 5));
+const store = useSimpleStore();
 
 const counter = computed(() => words.value.length);
 
 const dictionary = ref([]);
 
 const highlightedWords = computed(() => words.value.map(i => i.split('').map((letter, index) => {
-    const className = adjustedMask.value[index] === letter.toLowerCase() ? 'mask' : props.include.toLowerCase().includes(letter) ? 'include' : '';
+    const className = store.getMask[index] === letter.toLowerCase() ? 'mask' : store.getInclude.includes(letter) ? 'include' : '';
 
     return `<span class="${className}">${letter}</span>`;
 }).join('')).join(' '));
@@ -24,34 +25,23 @@ const highlightedWords = computed(() => words.value.map(i => i.split('').map((le
 const words = computed(() => {
     let filtered = [...dictionary.value];
 
-    if (props.mask !== '') {
-        const mask = new RegExp(adjustedMask.value.replaceAll('?', '[a-z]'));
-        filtered = filtered.filter(word => word.match(mask) !== null);
-    }
+    const mask = new RegExp(store.getMask.replaceAll('?', '[a-z]'));
+    filtered = filtered.filter(word => word.match(mask) !== null);
 
-    if (props.exclude !== '') {
-        filtered = filtered.filter(word => word.match(new RegExp(`[${props.exclude.toLowerCase()}]`)) === null);
-    }
+    filtered = filtered.filter(word => word.match(new RegExp(`[${store.getExclude}]`)) === null);
 
-    if (props.include !== '') {
-        const unique = (value, index, self) => self.indexOf(value) === index;
-        const expressionString = props.include.toLowerCase().split('').filter(unique).sort().join('.*');
-        const expression = new RegExp(expressionString);
+    const unique = (value, index, self) => self.indexOf(value) === index;
+    const expressionString = store.getInclude.split('').filter(unique).sort().join('.*');
+    const expression = new RegExp(expressionString);
+    console.log(expression);
 
-        filtered = filtered.filter(word => {
-            const letters = word.split('').sort().join('');
-            return letters.match(expression) !== null;
-        });
-    }
+    filtered = filtered.filter(word => {
+        const letters = word.split('').sort().join('');
+        return letters.match(expression) !== null;
+    });
 
     return filtered;
 });
-
-const props = defineProps({
-    exclude: String,
-    include: String,
-    mask: String,
-})
 
 fetch(`/dictionary/wordle.json`)
     .then(response => response.json())
