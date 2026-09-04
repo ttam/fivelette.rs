@@ -3,9 +3,8 @@
         <section class="solver-panel" aria-labelledby="betweenle-heading">
             <div class="intro-row">
                 <div class="intro">
-                    <p class="eyebrow">Betweenle helper</p>
-                    <h2 id="betweenle-heading">Bracket the hidden word.</h2>
-                    <p>Enter the closest words you know on either side, then add the percentages shown in the game for a much tighter shortlist.</p>
+                    <h2 id="betweenle-heading">Betweenle</h2>
+                    <p>Enter the nearest words on either side of the answer. Percentages are optional.</p>
                 </div>
                 <button v-if="hasProgress" class="text-button view-reset" type="button" @click="clearAll">Clear bounds</button>
             </div>

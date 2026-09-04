@@ -3,17 +3,16 @@
         <section class="solver-panel" aria-labelledby="solver-heading">
             <div class="intro-row">
                 <div class="intro">
-                    <p class="eyebrow">Wordle helper</p>
-                    <h2 id="solver-heading">Turn your clues into words.</h2>
-                    <p>Type a five-letter guess, then tap each tile until its colour matches your game.</p>
+                    <h2 id="solver-heading">Wordle</h2>
+                    <p>Type your last guess. Tap each letter to match the colours you got.</p>
                 </div>
                 <button v-if="hasProgress" class="text-button view-reset" type="button" @click="clearAll">Start over</button>
             </div>
 
             <div class="status-legend" aria-label="Tile colour guide">
-                <span><i class="legend-swatch is-absent" aria-hidden="true">×</i> Not in word</span>
-                <span><i class="legend-swatch is-present" aria-hidden="true">•</i> Wrong spot</span>
-                <span><i class="legend-swatch is-correct" aria-hidden="true">✓</i> Right spot</span>
+                <span><i class="legend-swatch is-absent" aria-hidden="true">×</i> Exclude</span>
+                <span><i class="legend-swatch is-present" aria-hidden="true">•</i> Misplaced</span>
+                <span><i class="legend-swatch is-correct" aria-hidden="true">✓</i> Fixed</span>
             </div>
 
             <div v-if="guesses.length" class="saved-clues" aria-label="Saved clues">
@@ -36,10 +35,10 @@
             <div v-if="guesses.length < maxGuesses" class="composer-card">
                 <div class="composer-heading">
                     <div>
-                        <span class="step-label">{{ guesses.length ? 'Next clue' : 'First clue' }}</span>
+                        <span class="step-label">{{ guesses.length ? 'Add another guess' : 'Enter a guess' }}</span>
                         <strong>{{ filledCount }}/5 letters</strong>
                     </div>
-                    <span v-if="draftComplete" class="ready-badge">Ready</span>
+                    <span v-if="draftComplete" class="ready-badge">Set</span>
                 </div>
 
                 <GuessRow :cells="draft" label="Current guess" @cycle="cycleDraftTile" />
@@ -60,7 +59,7 @@
                     <span aria-hidden="true">⌫</span> Delete
                 </button>
                 <button class="primary-button" type="button" :disabled="!draftComplete || guesses.length >= maxGuesses" @click="saveGuess">
-                    Add clue <span aria-hidden="true">→</span>
+                    Apply guess <span aria-hidden="true">→</span>
                 </button>
             </div>
         </section>
@@ -73,8 +72,8 @@
             :empty="activeClues.length === 0"
             :context="activeClues.length ? `from ${activeClues.length} ${activeClues.length === 1 ? 'clue' : 'clues'}` : ''"
             :draft-pending="filledCount > 0 && !draftComplete"
-            empty-title="Your shortlist will appear here."
-            empty-message="Enter a full guess and match its colours to get started."
+            empty-title="Start with a guess"
+            empty-message="Matching words will update here as you enter clues."
             zero-message="Check the tile colours, or remove a clue and try again."
         />
     </div>

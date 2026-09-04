@@ -3,15 +3,10 @@
         <a class="skip-link" href="#results">Skip to matching words</a>
 
         <header class="site-header">
-            <div class="brand-lockup">
-                <div class="brand-mark" aria-hidden="true">
-                    <span>F</span><span>I</span><span>V</span><span>E</span>
-                </div>
-                <div>
-                    <h1>Five Lette.rs</h1>
-                    <p>Less guessing. More knowing.</p>
-                </div>
-            </div>
+            <a class="brand-lockup" href="/" aria-label="Five Letters home">
+                <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+                <span class="brand-name">fivelette.rs</span>
+            </a>
 
             <nav class="game-switch" aria-label="Choose a solver">
                 <button
@@ -31,11 +26,6 @@
             <WordleView v-if="activeGame === 'wordle'" />
             <BetweenleView v-else />
         </main>
-
-        <footer class="site-footer">
-            <p>Five useful letters at a time.</p>
-            <a href="https://ttam.co/" target="_blank" rel="noopener noreferrer">Made by Matt</a>
-        </footer>
     </div>
 </template>
 
