@@ -46,10 +46,12 @@ button:not(:disabled), a { cursor: pointer; }
 button:focus-visible, a:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
 
 .app-shell { min-height: 100vh; display: flex; flex-direction: column; }
+.app-shell.is-betweenle { --accent: #ffad5b; --accent-ink: #2d1700; }
 .skip-link { position: fixed; top: 10px; left: 10px; z-index: 20; padding: 10px 14px; border-radius: 8px; background: var(--accent); color: var(--accent-ink); font-weight: 800; transform: translateY(-150%); }
 .skip-link:focus { transform: translateY(0); }
 .site-header, .site-footer, .workspace { width: min(100% - 32px, 1180px); margin-inline: auto; }
 .site-header { display: flex; min-height: 104px; align-items: center; justify-content: space-between; gap: 20px; border-bottom: 1px solid var(--line); }
+.main-content { flex: 1; }
 .brand-lockup { display: flex; align-items: center; gap: 14px; }
 .brand-mark { display: grid; grid-template-columns: repeat(2, 22px); gap: 3px; }
 .brand-mark span { display: grid; width: 22px; aspect-ratio: 1; place-items: center; border: 1px solid var(--line-strong); border-radius: 4px; color: var(--accent); font: 500 10px/1 var(--font-mono); }
@@ -58,9 +60,15 @@ button:focus-visible, a:focus-visible { outline: 3px solid var(--accent); outlin
 .brand-lockup p { margin-top: 2px; color: var(--ink-muted); font-size: 0.72rem; }
 .text-button { flex: 0 0 auto; padding: 10px 4px; background: transparent; color: var(--ink-muted); font-size: 0.85rem; font-weight: 700; text-decoration: underline; text-decoration-color: var(--line-strong); text-underline-offset: 4px; }
 .text-button:hover { color: var(--ink); }
+.game-switch { display: inline-flex; flex: 0 0 auto; gap: 4px; padding: 4px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); }
+.game-switch button { min-height: 36px; padding: 7px 13px; border-radius: 999px; background: transparent; color: var(--ink-muted); font-size: 0.75rem; font-weight: 800; }
+.game-switch button:hover { color: var(--ink); }
+.game-switch button.is-active { background: var(--accent); color: var(--accent-ink); }
 
 .workspace { display: grid; flex: 1; gap: clamp(32px, 6vw, 80px); padding-block: clamp(36px, 7vw, 72px); }
 .solver-panel { min-width: 0; }
+.intro-row { position: relative; }
+.view-reset { position: absolute; top: 0; right: 0; }
 .intro { max-width: 560px; }
 .eyebrow { margin: 0 0 10px; color: var(--accent); font: 500 0.72rem/1 var(--font-mono); letter-spacing: 0.16em; text-transform: uppercase; }
 .intro h2 { max-width: 520px; margin: 0; font-size: clamp(2rem, 7vw, 4.5rem); line-height: 0.98; letter-spacing: -0.065em; }
@@ -133,6 +141,41 @@ button:focus-visible, a:focus-visible { outline: 3px solid var(--accent); outlin
 .site-footer p { margin: 0; }
 .site-footer a { color: var(--ink); text-underline-offset: 4px; }
 
+.betweenle-workspace { --betweenle-line: #7f5a36; }
+.betweenle-explainer { display: flex; flex-wrap: wrap; gap: 10px 22px; margin-block: 28px 18px; color: var(--ink-muted); font-size: 0.75rem; font-weight: 700; }
+.betweenle-explainer span { display: inline-flex; align-items: center; gap: 8px; }
+.betweenle-explainer i { display: inline-grid; width: 22px; height: 22px; place-items: center; border: 1px solid var(--betweenle-line); border-radius: 50%; color: var(--accent); font: 500 0.65rem/1 var(--font-mono); font-style: normal; }
+.betweenle-form { display: grid; gap: 12px; }
+.bound-card { display: block; padding: clamp(16px, 4vw, 22px); border: 1px solid var(--line); border-radius: var(--radius-medium); background: var(--surface); transition: border-color 140ms ease, background 140ms ease; }
+.bound-card:focus-within, .bound-card.is-complete { border-color: var(--betweenle-line); background: linear-gradient(145deg, #27221c, var(--surface)); }
+.bound-direction { display: flex; align-items: center; gap: 9px; margin-bottom: 10px; color: var(--ink-muted); font-size: 0.74rem; font-weight: 800; text-transform: uppercase; }
+.bound-direction i { display: inline-grid; width: 24px; height: 24px; place-items: center; border-radius: 50%; background: rgb(255 173 91 / 12%); color: var(--accent); font-style: normal; }
+.bound-input-row { display: grid; grid-template-columns: minmax(0, 1fr) 34px; align-items: center; gap: 8px; }
+.bound-input-row input { width: 100%; min-width: 0; border: 0; outline: 0; background: transparent; color: var(--ink); font: 500 clamp(1.55rem, 7vw, 2.3rem)/1.2 var(--font-mono); letter-spacing: 0.12em; text-transform: uppercase; }
+.bound-input-row input::placeholder { color: #696d65; font-size: 0.74em; letter-spacing: 0.08em; }
+.clear-bound { display: grid; width: 34px; height: 34px; place-items: center; border-radius: 50%; background: var(--surface-raised); color: var(--ink-muted); font-size: 1.25rem; }
+.clear-bound:hover { color: var(--ink); }
+.bound-card small { display: block; min-height: 1.4em; margin-top: 9px; color: var(--ink-muted); font-size: 0.7rem; }
+.bound-footer { display: flex; min-height: 42px; align-items: flex-end; justify-content: space-between; gap: 14px; }
+.bound-footer small { flex: 1 1 auto; }
+.percentage-field { display: flex; flex: 0 0 auto; align-items: center; gap: 8px; color: var(--ink-muted); font-size: 0.66rem; font-weight: 800; text-transform: uppercase; }
+.percentage-field.is-disabled { opacity: 0.42; }
+.percentage-input { display: inline-flex; height: 36px; align-items: center; overflow: hidden; border: 1px solid var(--line-strong); border-radius: 8px; background: var(--canvas); }
+.percentage-input:focus-within { border-color: var(--accent); }
+.percentage-input input { width: 48px; min-width: 0; border: 0; outline: 0; background: transparent; color: var(--ink); font: 500 0.8rem/1 var(--font-mono); text-align: right; }
+.percentage-input input::placeholder { color: #696d65; }
+.percentage-input b { padding: 0 8px 0 4px; color: var(--accent); font: 500 0.7rem/1 var(--font-mono); }
+.percentage-input input:disabled { cursor: not-allowed; }
+.range-meter { display: grid; grid-template-columns: auto minmax(12px, 1fr) auto minmax(12px, 1fr) auto; align-items: center; gap: 9px; padding-inline: 14px; color: var(--ink-muted); }
+.range-meter strong { color: var(--accent); font: 500 0.7rem/1 var(--font-mono); text-transform: uppercase; white-space: nowrap; }
+.range-meter.is-invalid strong { color: var(--danger); }
+.range-end { font: 500 0.62rem/1 var(--font-mono); }
+.range-line { height: 1px; background: var(--line-strong); }
+.betweenle-tip { display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 11px; margin-top: 18px; padding: 14px 16px; border-radius: 12px; background: rgb(255 173 91 / 7%); color: var(--ink-muted); font-size: 0.76rem; line-height: 1.5; }
+.betweenle-tip > span { display: grid; width: 30px; height: 30px; place-items: center; border: 1px solid var(--betweenle-line); border-radius: 9px; color: var(--accent); }
+.betweenle-tip p { margin: 0; }
+.betweenle-tip strong { color: var(--ink); }
+
 @keyframes loading { from { transform: translateX(-15%); } to { transform: translateX(155%); } }
 
 @media (min-width: 900px) {
@@ -147,6 +190,8 @@ button:focus-visible, a:focus-visible { outline: 3px solid var(--accent); outlin
     .brand-mark span { width: 18px; }
     .brand-lockup { gap: 10px; }
     .brand-lockup p { display: none; }
+    .game-switch { gap: 2px; padding: 3px; }
+    .game-switch button { min-height: 34px; padding-inline: 10px; font-size: 0.68rem; }
     .workspace { padding-block: 30px 44px; }
     .intro h2 { max-width: 330px; }
     .status-legend { gap: 9px 12px; margin-top: 24px; font-size: 0.68rem; }
@@ -161,6 +206,11 @@ button:focus-visible, a:focus-visible { outline: 3px solid var(--accent); outlin
     .secondary-button, .primary-button { min-height: 48px; padding-inline: 10px; font-size: 0.8rem; }
     .results-card { min-height: 330px; border-radius: 20px; }
     .site-footer { align-items: flex-start; flex-direction: column; }
+    .view-reset { position: static; display: inline-block; margin-top: 12px; }
+    .betweenle-explainer { gap: 9px 14px; font-size: 0.67rem; }
+    .range-meter { padding-inline: 4px; }
+    .bound-footer { align-items: flex-start; flex-direction: column; gap: 8px; }
+    .percentage-field { width: 100%; justify-content: space-between; }
 }
 
 @media (prefers-reduced-motion: reduce) {

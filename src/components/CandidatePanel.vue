@@ -21,15 +21,15 @@
                 <h2 id="results-heading" class="result-count" aria-live="polite">{{ words.length.toLocaleString() }}</h2>
                 <p class="result-count-label">
                     {{ words.length === 1 ? 'possible word' : 'possible words' }}
-                    <template v-if="clueCount"> from {{ clueCount }} {{ clueCount === 1 ? 'clue' : 'clues' }}</template>
+                    <template v-if="context"> {{ context }}</template>
                 </p>
 
-                <div v-if="clueCount === 0" class="result-state">
-                    <div><strong>Your shortlist will appear here.</strong>Enter a full guess and match its colours to get started.</div>
+                <div v-if="empty" class="result-state">
+                    <div><strong>{{ emptyTitle }}</strong>{{ emptyMessage }}</div>
                 </div>
 
                 <div v-else-if="words.length === 0" class="result-state">
-                    <div><strong>No words fit those clues.</strong>Check the tile colours, or remove a clue and try again.</div>
+                    <div><strong>{{ zeroTitle }}</strong>{{ zeroMessage }}</div>
                 </div>
 
                 <template v-else>
@@ -54,7 +54,12 @@ const props = defineProps({
     words: { type: Array, required: true },
     loading: Boolean,
     error: Boolean,
-    clueCount: { type: Number, default: 0 },
+    context: { type: String, default: '' },
+    empty: Boolean,
+    emptyTitle: { type: String, default: 'Your shortlist will appear here.' },
+    emptyMessage: { type: String, default: 'Enter a complete clue to get started.' },
+    zeroTitle: { type: String, default: 'No words fit those clues.' },
+    zeroMessage: { type: String, default: 'Check your clues and try again.' },
     draftPending: Boolean,
 });
 
