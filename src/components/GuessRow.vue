@@ -12,13 +12,12 @@
             @click="$emit('cycle', index)"
         >
             <span>{{ cell.letter }}</span>
-            <span v-if="cell.letter" class="tile-mark" aria-hidden="true">{{ stateMark(cell.state) }}</span>
         </button>
     </div>
 </template>
 
 <script setup>
-import { stateLabel, stateMark } from '../lib/wordle.js';
+import { stateLabel } from '../lib/wordle.js';
 
 defineProps({
     cells: { type: Array, required: true },

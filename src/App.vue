@@ -1,11 +1,12 @@
 <template>
-    <div class="app-shell" :class="`is-${activeGame}`">
+    <div class="app-shell">
         <a class="skip-link" href="#results">Skip to matching words</a>
 
         <header class="site-header">
             <a class="brand-lockup" href="/" aria-label="Five Letters home">
-                <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
-                <span class="brand-name">fivelette.rs</span>
+                <span class="brand-word" aria-hidden="true">
+                    <span>f</span><span>i</span><span>v</span><span>e</span><span>l</span><span>e</span><span>t</span><span>t</span><span>e</span><span>r</span><span>s</span>
+                </span>
             </a>
 
             <nav class="game-switch" aria-label="Choose a solver">
@@ -26,6 +27,10 @@
             <WordleView v-if="activeGame === 'wordle'" />
             <BetweenleView v-else />
         </main>
+
+        <footer class="site-footer">
+            <p>© 2026 <a href="https://mattbannon.com/" target="_blank" rel="noopener noreferrer">Matt Bannon</a>.</p>
+        </footer>
     </div>
 </template>
 

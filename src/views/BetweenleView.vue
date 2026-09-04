@@ -1,19 +1,6 @@
 <template>
-    <div class="workspace betweenle-workspace">
-        <section class="solver-panel" aria-labelledby="betweenle-heading">
-            <div class="intro-row">
-                <div class="intro">
-                    <h2 id="betweenle-heading">Betweenle</h2>
-                    <p>Enter the nearest words on either side of the answer. Percentages are optional.</p>
-                </div>
-                <button v-if="hasProgress" class="text-button view-reset" type="button" @click="clearAll">Clear bounds</button>
-            </div>
-
-            <div class="betweenle-explainer" aria-label="How Betweenle bounds work">
-                <span><i aria-hidden="true">A</i> Earlier in the dictionary</span>
-                <span><i aria-hidden="true">Z</i> Later in the dictionary</span>
-            </div>
-
+    <div class="workspace">
+        <section class="solver-panel" aria-label="Betweenle solver">
             <div class="betweenle-form">
                 <div class="bound-card" :class="{ 'is-complete': afterComplete }">
                     <label class="bound-direction" for="after-bound"><i aria-hidden="true">→</i> The answer comes after</label>
@@ -104,12 +91,10 @@
                         </label>
                     </span>
                 </div>
+
+                <button v-if="hasProgress" class="text-button form-reset" type="button" @click="clearAll">Clear bounds</button>
             </div>
 
-            <div class="betweenle-tip">
-                <span aria-hidden="true">↕</span>
-                <p><strong>Copy the numbers exactly as shown.</strong> Betweenle changes precision below 10% and 1%; either percentage is optional, but using both gives the tightest result.</p>
-            </div>
         </section>
 
         <CandidatePanel

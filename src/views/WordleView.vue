@@ -1,20 +1,6 @@
 <template>
     <div class="workspace">
-        <section class="solver-panel" aria-labelledby="solver-heading">
-            <div class="intro-row">
-                <div class="intro">
-                    <h2 id="solver-heading">Wordle</h2>
-                    <p>Type your last guess. Tap each letter to match the colours you got.</p>
-                </div>
-                <button v-if="hasProgress" class="text-button view-reset" type="button" @click="clearAll">Start over</button>
-            </div>
-
-            <div class="status-legend" aria-label="Tile colour guide">
-                <span><i class="legend-swatch is-absent" aria-hidden="true">×</i> Exclude</span>
-                <span><i class="legend-swatch is-present" aria-hidden="true">•</i> Misplaced</span>
-                <span><i class="legend-swatch is-correct" aria-hidden="true">✓</i> Fixed</span>
-            </div>
-
+        <section class="solver-panel" aria-label="Wordle solver">
             <div v-if="guesses.length" class="saved-clues" aria-label="Saved clues">
                 <article v-for="(guess, guessIndex) in guesses" :key="guess.id" class="saved-clue">
                     <span class="clue-number" aria-hidden="true">{{ guessIndex + 1 }}</span>
@@ -33,12 +19,18 @@
             </div>
 
             <div v-if="guesses.length < maxGuesses" class="composer-card">
+                <div class="status-legend" aria-label="Tile colour guide">
+                    <span><i class="legend-swatch is-absent" aria-hidden="true"></i> Not in word</span>
+                    <span><i class="legend-swatch is-present" aria-hidden="true"></i> Wrong spot</span>
+                    <span><i class="legend-swatch is-correct" aria-hidden="true"></i> Right spot</span>
+                </div>
+
                 <div class="composer-heading">
                     <div>
                         <span class="step-label">{{ guesses.length ? 'Add another guess' : 'Enter a guess' }}</span>
                         <strong>{{ filledCount }}/5 letters</strong>
                     </div>
-                    <span v-if="draftComplete" class="ready-badge">Set</span>
+                    <button v-if="hasProgress" class="text-button" type="button" @click="clearAll">Start over</button>
                 </div>
 
                 <GuessRow :cells="draft" label="Current guess" @cycle="cycleDraftTile" />
