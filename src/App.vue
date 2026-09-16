@@ -25,7 +25,9 @@
 
         <main class="main-content">
             <WordleView v-if="activeGame === 'wordle'" />
-            <BetweenleView v-else />
+            <BetweenleView v-else-if="activeGame === 'betweenle'" />
+            <ScrabbleView v-else-if="activeGame === 'scrabble'" />
+            <SolarOrbitView v-else />
         </main>
 
         <footer class="site-footer">
@@ -37,21 +39,26 @@
 <script setup>
 import { onBeforeUnmount, onMounted, ref } from 'vue';
 import BetweenleView from './views/BetweenleView.vue';
+import ScrabbleView from './views/ScrabbleView.vue';
+import SolarOrbitView from './views/SolarOrbitView.vue';
 import WordleView from './views/WordleView.vue';
 
 const games = [
     { id: 'wordle', label: 'Wordle' },
     { id: 'betweenle', label: 'Betweenle' },
+    { id: 'scrabble', label: 'Scrabble' },
+    { id: 'solar', label: 'Solar Orbit' },
 ];
 
-const gameFromUrl = () => new URLSearchParams(window.location.search).get('game') === 'betweenle'
-    ? 'betweenle'
-    : 'wordle';
+const gameFromUrl = () => {
+    const game = new URLSearchParams(window.location.search).get('game');
+    return games.some(option => option.id === game) ? game : 'wordle';
+};
 
 const activeGame = ref(gameFromUrl());
 
 const updateTitle = () => {
-    const game = activeGame.value === 'betweenle' ? 'Betweenle' : 'Wordle';
+    const game = games.find(option => option.id === activeGame.value)?.label || 'Wordle';
     document.title = `${game} solver — Five Lette.rs`;
 };
 
@@ -60,8 +67,8 @@ const selectGame = (game) => {
     activeGame.value = game;
 
     const url = new URL(window.location.href);
-    if (game === 'betweenle') url.searchParams.set('game', 'betweenle');
-    else url.searchParams.delete('game');
+    if (game === 'wordle') url.searchParams.delete('game');
+    else url.searchParams.set('game', game);
     window.history.pushState({}, '', url);
     updateTitle();
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

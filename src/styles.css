@@ -159,6 +159,34 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 2px solid 
 .range-end { font: 500 0.64rem/1 var(--font-mono); }
 .range-line { height: 1px; background: var(--line-strong); }
 .form-reset { justify-self: end; margin-top: 2px; }
+
+.scrabble-card, .orbit-card { min-height: 285px; padding: clamp(20px, 4vw, 30px); border: 1px solid var(--line-strong); border-radius: var(--radius-medium); background: var(--surface); }
+.scrabble-heading, .orbit-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 18px; margin-bottom: 17px; }
+.scrabble-heading label, .orbit-heading label { font-size: 0.82rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
+.scrabble-heading span, .orbit-heading span { color: var(--ink-muted); font-size: 0.72rem; }
+.rack-input, .orbit-input { width: 100%; min-height: 86px; padding: 16px 18px; border: 1px solid var(--line-strong); border-radius: 9px; outline: 0; background: var(--canvas); color: var(--ink); font: 500 clamp(1.7rem, 4vw, 2.4rem)/1 var(--font-mono); letter-spacing: 0.13em; text-transform: uppercase; }
+.orbit-input { font-size: clamp(1.25rem, 2.5vw, 1.7rem); letter-spacing: 0.08em; }
+.rack-input:focus, .orbit-input:focus { border-color: var(--accent); }
+.rack-input::placeholder, .orbit-input::placeholder { color: #676c63; font-size: 0.68em; letter-spacing: 0.08em; }
+.rack-meta, .orbit-meta { display: flex; min-height: 44px; align-items: center; justify-content: space-between; gap: 16px; color: var(--ink-muted); font: 500 0.7rem/1 var(--font-mono); }
+.rack-meta .text-button:disabled { cursor: not-allowed; opacity: 0.35; }
+.scrabble-actions, .orbit-actions { display: grid; grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr); gap: 9px; }
+.scrabble-word-list { display: grid; max-height: 500px; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 7px; margin: 20px 0 0; padding: 0 4px 0 0; overflow-y: auto; list-style: none; scrollbar-color: var(--line-strong) transparent; scrollbar-width: thin; }
+.scrabble-word-list li { display: flex; min-width: 0; align-items: center; justify-content: space-between; gap: 8px; padding: 9px 8px 9px 11px; border: 1px solid var(--line); border-radius: 6px; background: var(--canvas); }
+.scrabble-word-list li:hover { border-color: var(--accent); }
+.scrabble-word-list strong { overflow: hidden; font: 500 0.75rem/1 var(--font-mono); letter-spacing: 0.03em; text-overflow: ellipsis; text-transform: uppercase; }
+.scrabble-word-list span { display: grid; min-width: 24px; height: 22px; place-items: center; border-radius: 4px; background: var(--surface-raised); color: var(--accent); font: 500 0.66rem/1 var(--font-mono); }
+
+.orbit-solution-list { display: grid; max-height: 500px; gap: 12px; margin: 20px 0 0; padding: 0 4px 0 0; overflow-y: auto; list-style: none; scrollbar-color: var(--line-strong) transparent; scrollbar-width: thin; }
+.orbit-solution { padding: 16px; border: 1px solid var(--line); border-radius: 8px; background: var(--canvas); }
+.orbit-solution > header { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 13px; color: var(--ink-muted); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+.orbit-solution > header strong { display: grid; width: 38px; height: 38px; place-items: center; border-radius: 6px; background: var(--accent); color: var(--accent-ink); font: 500 0.9rem/1 var(--font-mono); }
+.orbit-solution ul { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.orbit-solution ul li { display: grid; grid-template-columns: 28px 28px 28px minmax(0, 1fr); align-items: center; gap: 4px; }
+.orbit-solution ul span, .orbit-solution ul b { display: grid; height: 27px; place-items: center; border: 1px solid var(--line); border-radius: 4px; font: 500 0.62rem/1 var(--font-mono); }
+.orbit-solution ul b { border-color: var(--accent); color: var(--accent); }
+.orbit-solution ul strong { overflow: hidden; margin-left: 8px; font: 500 0.76rem/1 var(--font-mono); letter-spacing: 0.04em; text-overflow: ellipsis; }
+
 .site-footer { display: flex; min-height: 72px; align-items: center; justify-content: flex-end; border-top: 1px solid var(--line); color: var(--ink-muted); font-size: 0.72rem; }
 .site-footer p { margin: 0; }
 .site-footer a { color: var(--ink); text-decoration-color: var(--line-strong); text-underline-offset: 4px; }
@@ -170,6 +198,13 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 2px solid 
     .workspace { grid-template-columns: 1fr; gap: 40px; }
     .results-card { position: static; }
     .word-list { max-height: 480px; }
+}
+
+@media (max-width: 640px) {
+    .site-header { align-items: stretch; flex-direction: column; gap: 12px; padding-block: 14px; }
+    .brand-lockup { align-self: flex-start; }
+    .game-switch { width: 100%; }
+    .game-switch button { min-width: 0; flex: 1 1 0; }
 }
 
 @media (max-width: 560px) {
@@ -196,6 +231,10 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 2px solid 
     .results-header h2 { font-size: 1.3rem; }
     .results-header p { max-width: 190px; font-size: 0.7rem; }
     .word-list { grid-template-columns: repeat(auto-fill, minmax(72px, 1fr)); }
+    .scrabble-card, .orbit-card { min-height: 0; padding: 18px; }
+    .scrabble-heading, .orbit-heading { align-items: flex-start; flex-direction: column; gap: 5px; }
+    .rack-input, .orbit-input { min-height: 76px; padding-inline: 14px; }
+    .scrabble-word-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .bound-footer { align-items: flex-start; flex-direction: column; gap: 7px; }
     .percentage-field { width: 100%; justify-content: space-between; }
     .site-footer { min-height: 68px; }
